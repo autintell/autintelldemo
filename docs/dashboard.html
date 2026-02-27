@@ -3,8 +3,390 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Autintell LogOS - Logistics Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
+<body class="bg-slate-100 text-slate-900">
+  <div class="min-h-screen">
+    <header class="bg-slate-900 text-white border-b border-slate-700 sticky top-0 z-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-orange-300">Autintell LogOS</p>
+          <h1 class="text-xl md:text-2xl font-bold">AI-Driven Logistics Planning Dashboard</h1>
+        </div>
+        <a href="index.html#demo-page" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Logout</a>
+      </div>
+    </header>
+
+    <main class="h-[calc(100vh-81px)] flex overflow-hidden">
+      <aside id="leftSidebar" class="w-72 transition-all duration-300 border-r border-slate-200 bg-white shrink-0 overflow-y-auto">
+        <div class="h-full p-3">
+          <div class="flex items-center justify-between px-2 py-2 mb-1">
+            <p class="left-label text-xs uppercase tracking-wider text-slate-500">Navigation</p>
+            <button onclick="toggleLeftSidebar()" class="text-slate-500 hover:text-slate-800 text-lg leading-none px-2">☰</button>
+          </div>
+          <button id="tabOverviewBtn" onclick="showDashboardTab('overview')" class="w-full text-left px-3 py-2 rounded-lg bg-orange-500 text-white font-semibold mb-2">
+            <span class="left-label">Main Page</span>
+            <span class="left-icon hidden">M</span>
+          </button>
+          <button id="tabAssetsBtn" onclick="showDashboardTab('assets')" class="w-full text-left px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 font-semibold">
+            <span class="left-label">Assets</span>
+            <span class="left-icon hidden">A</span>
+          </button>
+        </div>
+      </aside>
+
+      <section class="flex-1 overflow-y-auto p-6">
+        <div class="max-w-6xl mx-auto space-y-8">
+      <section id="overviewTab" class="space-y-8">
+      <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+          <p class="text-sm text-slate-500">Mission Readiness</p>
+          <p class="text-3xl font-bold mt-2">87%</p>
+          <p class="text-xs text-emerald-600 mt-1">+4% from last cycle</p>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+          <p class="text-sm text-slate-500">Active Logistics Missions</p>
+          <p class="text-3xl font-bold mt-2">12</p>
+          <p class="text-xs text-slate-500 mt-1">3 high-priority</p>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+          <p class="text-sm text-slate-500">Vehicles / Drones Available</p>
+          <p class="text-3xl font-bold mt-2">41</p>
+          <p class="text-xs text-amber-600 mt-1">6 under maintenance</p>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+          <p class="text-sm text-slate-500">Resupply Requests Pending</p>
+          <p class="text-3xl font-bold mt-2">9</p>
+          <p class="text-xs text-rose-600 mt-1">2 critical</p>
+        </div>
+      </section>
+
+      <section class="grid lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold">Operational Theater View</h2>
+            <span class="text-xs bg-slate-100 border border-slate-200 px-2 py-1 rounded-md">Near Real-Time</span>
+          </div>
+          <div class="h-72 rounded-lg bg-gradient-to-br from-slate-800 to-slate-700 flex items-center justify-center text-slate-300 border border-slate-600">
+            Map / Geospatial Layer Placeholder
+          </div>
+          <div class="grid sm:grid-cols-3 gap-3 mt-4 text-sm">
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">Forward Base Alpha: <span class="font-semibold">Low Medical Stock</span></div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">Convoy C-12: <span class="font-semibold">On Route</span></div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">UAV U-7: <span class="font-semibold">Weather Hold</span></div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+          <h2 class="text-lg font-bold mb-4">Alerts & Stress Points</h2>
+          <ul class="space-y-3 text-sm">
+            <li class="p-3 rounded-lg bg-rose-50 border border-rose-200">
+              <p class="font-semibold text-rose-700">Critical: Fuel below threshold</p>
+              <p class="text-rose-600">Sector Echo depot at 14% capacity.</p>
+            </li>
+            <li class="p-3 rounded-lg bg-amber-50 border border-amber-200">
+              <p class="font-semibold text-amber-700">Warning: Route degradation</p>
+              <p class="text-amber-700">Mountain Corridor M2 delayed by weather.</p>
+            </li>
+            <li class="p-3 rounded-lg bg-blue-50 border border-blue-200">
+              <p class="font-semibold text-blue-700">Info: Asset reassignment suggested</p>
+              <p class="text-blue-700">Swap UAV U-3 to Mission LG-09.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="grid lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 overflow-x-auto">
+          <h2 class="text-lg font-bold mb-4">Active Logistics Missions</h2>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-left text-slate-500 border-b border-slate-200">
+                <th class="pb-2">Mission</th>
+                <th class="pb-2">Destination</th>
+                <th class="pb-2">Status</th>
+                <th class="pb-2">ETA</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="py-3 font-medium">LG-09</td>
+                <td class="py-3">Forward Base Alpha</td>
+                <td class="py-3 text-amber-600">Delayed</td>
+                <td class="py-3">47 min</td>
+              </tr>
+              <tr>
+                <td class="py-3 font-medium">LG-14</td>
+                <td class="py-3">Sector Echo</td>
+                <td class="py-3 text-emerald-600">On Track</td>
+                <td class="py-3">23 min</td>
+              </tr>
+              <tr>
+                <td class="py-3 font-medium">LG-21</td>
+                <td class="py-3">Ridge Outpost 3</td>
+                <td class="py-3 text-blue-600">Planning</td>
+                <td class="py-3">TBD</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 overflow-x-auto">
+          <h2 class="text-lg font-bold mb-4">Asset Availability</h2>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-left text-slate-500 border-b border-slate-200">
+                <th class="pb-2">Asset</th>
+                <th class="pb-2">Type</th>
+                <th class="pb-2">Location</th>
+                <th class="pb-2">State</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="py-3 font-medium">V-102</td>
+                <td class="py-3">Truck</td>
+                <td class="py-3">Depot North</td>
+                <td class="py-3 text-emerald-600">Available</td>
+              </tr>
+              <tr>
+                <td class="py-3 font-medium">U-07</td>
+                <td class="py-3">UAV</td>
+                <td class="py-3">Sector Echo</td>
+                <td class="py-3 text-amber-600">Weather Hold</td>
+              </tr>
+              <tr>
+                <td class="py-3 font-medium">V-088</td>
+                <td class="py-3">Armored Carrier</td>
+                <td class="py-3">Workshop 2</td>
+                <td class="py-3 text-rose-600">Maintenance</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="bg-slate-900 text-white rounded-xl p-6 shadow-sm">
+        <h2 class="text-lg font-bold mb-4">AI Planning Recommendations</h2>
+        <div class="grid md:grid-cols-3 gap-4 text-sm">
+          <div class="rounded-lg bg-slate-800 p-4 border border-slate-700">
+            <p class="text-orange-300 font-semibold mb-1">Route Planning</p>
+            <p>Re-route LG-09 via Corridor Kappa to reduce delay by 18 minutes.</p>
+          </div>
+          <div class="rounded-lg bg-slate-800 p-4 border border-slate-700">
+            <p class="text-orange-300 font-semibold mb-1">Resource Allocation</p>
+            <p>Assign V-102 + U-03 pair to high-priority resupply at Forward Base Alpha.</p>
+          </div>
+          <div class="rounded-lg bg-slate-800 p-4 border border-slate-700">
+            <p class="text-orange-300 font-semibold mb-1">Failure Prevention</p>
+            <p>Pre-position 2 fuel pods at Sector Echo to avoid projected shortage in 6 hours.</p>
+          </div>
+        </div>
+      </section>
+      </section>
+
+      <section id="assetsTab" class="hidden space-y-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+          <h2 class="text-2xl font-bold">Assets</h2>
+          <p class="text-slate-600 mt-1">Overview of aircraft, helicopters, UAV, and ground vehicle platforms.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+            <p class="text-sm text-slate-500">Total Platforms Listed</p>
+            <p class="text-3xl font-bold mt-2">38</p>
+          </div>
+          <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+            <p class="text-sm text-slate-500">Combat Aircraft</p>
+            <p class="text-3xl font-bold mt-2">5</p>
+          </div>
+          <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+            <p class="text-sm text-slate-500">Transport + Helicopters</p>
+            <p class="text-3xl font-bold mt-2">9</p>
+          </div>
+          <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+            <p class="text-sm text-slate-500">UAV / Drones / UCAV</p>
+            <p class="text-3xl font-bold mt-2">12</p>
+          </div>
+          <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+            <p class="text-sm text-slate-500">Ground Vehicles</p>
+            <p class="text-3xl font-bold mt-2">10</p>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+            <h3 class="text-lg font-bold mb-3">Fighter / Strike Aircraft</h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700">
+              <li>Air superiority / multirole fighter – Sukhoi Su-30MKI</li>
+              <li>Multirole fighter – Dassault Rafale</li>
+              <li>Air superiority / multirole fighter – Mikoyan MiG-29UPG</li>
+              <li>Multirole fighter – Dassault Mirage 2000</li>
+              <li>Ground attack / strike aircraft – SEPECAT Jaguar</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+            <h3 class="text-lg font-bold mb-3">Transport / Tanker Aircraft</h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700">
+              <li>Tactical transport aircraft – Lockheed Martin C-130J Super Hercules</li>
+              <li>Strategic transport aircraft – Boeing C-17 Globemaster III</li>
+              <li>Strategic transport aircraft – Ilyushin Il-76</li>
+              <li>Medium transport aircraft – Antonov An-32</li>
+              <li>Aerial refuelling tanker – Ilyushin Il-78MKI</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+            <h3 class="text-lg font-bold mb-3">Helicopters</h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700">
+              <li>Utility helicopter – HAL Dhruv</li>
+              <li>Attack helicopter – HAL Rudra</li>
+              <li>Light combat / attack helicopter – HAL Prachand</li>
+              <li>Transport / armed helicopter – Mi-17 series</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+            <h3 class="text-lg font-bold mb-3">Ground Combat & Support Vehicles</h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700 max-h-80 overflow-y-auto pr-2">
+              <li>Main battle tank – T-90 Bhishma</li>
+              <li>Main battle tank – Arjun</li>
+              <li>Infantry combat vehicle – BMP-2 Sarath</li>
+              <li>Wheeled armoured vehicle – Tata Kestrel / WhAP</li>
+              <li>155 mm self-propelled howitzer – K9 Vajra-T</li>
+              <li>155 mm towed howitzer – M777 Ultra Lightweight Howitzer</li>
+              <li>Multiple rocket launcher – Pinaka</li>
+              <li>Mine-resistant / patrol vehicle – Kalyani M4</li>
+              <li>Light armoured patrol vehicle – Tata LAMV</li>
+              <li>High-mobility truck – Tatra 8×8 logistics vehicle</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+            <h3 class="text-lg font-bold mb-3">UAV / Drone / UCAV Platforms</h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700 max-h-80 overflow-y-auto pr-2">
+              <li>Surveillance UAV – IAI Searcher</li>
+              <li>Surveillance UAV – IAI Heron</li>
+              <li>MALE combat / surveillance UAV – MQ-9 Reaper / SeaGuardian / SkyGuardian</li>
+              <li>Surveillance UAV – Elbit Hermes 900 “Drishti-10”</li>
+              <li>Surveillance UAV – DRDO Nishant</li>
+              <li>Target drone – DRDO Lakshya</li>
+              <li>Air-launched target drone – DRDO Ulka</li>
+              <li>High-speed expendable target drone – DRDO Abhyas</li>
+              <li>Mini / quadcopter surveillance UAV – DRDO Netra</li>
+              <li>MALE UAV – DRDO Rustom</li>
+              <li>MALE UAV – TAPAS-BH-201</li>
+              <li>Stealth UCAV (under development) – DRDO Ghatak</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+        </div>
+      </section>
+
+      <aside id="rightSidebar" class="w-80 transition-all duration-300 border-l border-slate-200 bg-white shrink-0 flex flex-col">
+          <div class="px-3 py-3 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+            <div class="right-label-wrap">
+              <h3 class="font-bold text-slate-900">Operations Chat</h3>
+              <p class="text-xs text-slate-500">AI assistant for logistics decisions</p>
+            </div>
+            <button onclick="toggleRightSidebar()" class="text-slate-500 hover:text-slate-800 text-lg leading-none px-2">☰</button>
+          </div>
+
+            <div class="right-panel flex-1 overflow-y-auto p-4 space-y-3 bg-white">
+              <div class="max-w-[90%] rounded-lg bg-slate-100 text-slate-700 p-3 text-sm">
+                Show critical resupply alerts for next 6 hours.
+              </div>
+              <div class="max-w-[90%] ml-auto rounded-lg bg-orange-500 text-white p-3 text-sm">
+                2 critical alerts detected: Sector Echo fuel and Base Alpha medical supplies.
+              </div>
+              <div class="max-w-[90%] rounded-lg bg-slate-100 text-slate-700 p-3 text-sm">
+                Suggest best mission reassignment.
+              </div>
+              <div class="max-w-[90%] ml-auto rounded-lg bg-orange-500 text-white p-3 text-sm">
+                Reassign convoy C-12 support UAV U-03 to LG-09 for fastest stabilization.
+              </div>
+            </div>
+
+            <div class="right-panel p-3 border-t border-slate-200 bg-white">
+              <div class="flex gap-2">
+                <input type="text" placeholder="Ask logistics AI..." class="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+                <button class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Send</button>
+              </div>
+            </div>
+      </aside>
+    </main>
+  </div>
+  <script>
+    function showDashboardTab(tab) {
+      const overviewTab = document.getElementById('overviewTab');
+      const assetsTab = document.getElementById('assetsTab');
+      const tabOverviewBtn = document.getElementById('tabOverviewBtn');
+      const tabAssetsBtn = document.getElementById('tabAssetsBtn');
+
+      if (tab === 'assets') {
+        overviewTab.classList.add('hidden');
+        assetsTab.classList.remove('hidden');
+        tabOverviewBtn.className = 'w-full text-left px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 font-semibold';
+        tabAssetsBtn.className = 'w-full text-left px-3 py-2 rounded-lg bg-orange-500 text-white font-semibold';
+      } else {
+        assetsTab.classList.add('hidden');
+        overviewTab.classList.remove('hidden');
+        tabAssetsBtn.className = 'w-full text-left px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 font-semibold';
+        tabOverviewBtn.className = 'w-full text-left px-3 py-2 rounded-lg bg-orange-500 text-white font-semibold';
+      }
+    }
+
+    function toggleLeftSidebar() {
+      const sidebar = document.getElementById('leftSidebar');
+      const labels = document.querySelectorAll('.left-label');
+      const icons = document.querySelectorAll('.left-icon');
+      const collapsed = sidebar.classList.contains('w-16');
+
+      if (collapsed) {
+        sidebar.classList.remove('w-16');
+        sidebar.classList.add('w-72');
+        labels.forEach(el => el.classList.remove('hidden'));
+        icons.forEach(el => el.classList.add('hidden'));
+      } else {
+        sidebar.classList.remove('w-72');
+        sidebar.classList.add('w-16');
+        labels.forEach(el => el.classList.add('hidden'));
+        icons.forEach(el => el.classList.remove('hidden'));
+      }
+    }
+
+    function toggleRightSidebar() {
+      const sidebar = document.getElementById('rightSidebar');
+      const rightLabelWrap = document.querySelector('.right-label-wrap');
+      const rightPanels = document.querySelectorAll('.right-panel');
+      const collapsed = sidebar.classList.contains('w-14');
+
+      if (collapsed) {
+        sidebar.classList.remove('w-14');
+        sidebar.classList.add('w-80');
+        rightLabelWrap.classList.remove('hidden');
+        rightPanels.forEach(el => el.classList.remove('hidden'));
+      } else {
+        sidebar.classList.remove('w-80');
+        sidebar.classList.add('w-14');
+        rightLabelWrap.classList.add('hidden');
+        rightPanels.forEach(el => el.classList.add('hidden'));
+      }
+    }
+  </script>
 </body>
 </html>
