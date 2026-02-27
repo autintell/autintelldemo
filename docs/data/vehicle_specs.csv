@@ -1,0 +1,11 @@
+vehicle_id,vehicle_name,category,sub_category,role,fuel_capacity_l,operational_range_km,max_speed_kmph,payload_kg,crew,armor_level,weapon_system,status,last_maintenance_date,data_quality
+GV-001,T-90 Bhishma,Ground Vehicle,Tank,Main battle tank,1200,550,60,2000,3,Heavy,125 mm smoothbore gun,Active,2026-02-07,simulated
+GV-002,Arjun,Ground Vehicle,Tank,Main battle tank,1610,450,58,2500,4,Heavy,120 mm rifled gun,Active,2026-02-03,simulated
+GV-003,BMP-2 Sarath,Ground Vehicle,Infantry Combat Vehicle,Infantry combat vehicle,460,600,65,3000,3,Medium,30 mm autocannon + ATGM,Active,2026-02-09,simulated
+GV-004,Tata Kestrel / WhAP,Ground Vehicle,Wheeled Armoured Vehicle,Wheeled armoured vehicle,500,700,100,4000,3,Medium,30 mm turret configurable,Active,2026-02-10,simulated
+GV-005,K9 Vajra-T,Ground Vehicle,Self-Propelled Artillery,155 mm self-propelled howitzer,1000,360,67,47000,5,Medium,155 mm/52 caliber howitzer,Active,2026-01-29,simulated
+GV-006,M777 Ultra Lightweight Howitzer,Ground Vehicle,Towed Artillery,155 mm towed howitzer,0,30,0,4200,8,Light,155 mm howitzer,Active,2026-01-24,simulated
+GV-007,Pinaka,Ground Vehicle,Rocket Artillery,Multiple rocket launcher,500,250,80,12000,5,Light,214 mm MBRL,Active,2026-02-05,simulated
+GV-008,Kalyani M4,Ground Vehicle,MRAP,Mine-resistant / patrol vehicle,220,700,120,2500,2,MRAP,7.62 mm / 12.7 mm mount,Active,2026-02-11,simulated
+GV-009,Tata LAMV,Ground Vehicle,Light Armoured Patrol Vehicle,Light armoured patrol vehicle,180,600,110,1200,4,Light,LMG / MMG mount,Active,2026-01-31,simulated
+GV-010,Tatra 8x8 Logistics Vehicle,Ground Vehicle,High-Mobility Truck,High-mobility truck,450,850,90,18000,2,Unarmoured,Optional LMG mount,Active,2026-02-08,simulated

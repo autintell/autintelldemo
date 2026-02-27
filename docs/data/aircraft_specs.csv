@@ -1,0 +1,27 @@
+asset_id,asset_name,category,sub_category,role,fuel_capacity_l,battery_capacity_kwh,charge_time_min,range_km,endurance_hours,max_speed_kmph,payload_kg,crew,service_ceiling_m,status,last_maintenance_date,data_quality
+AC-001,Sukhoi Su-30MKI,Aircraft,Fighter,Air superiority / multirole,9640,,,3000,4.5,2120,8000,2,17300,Active,2026-02-08,simulated
+AC-002,Dassault Rafale,Aircraft,Fighter,Multirole,4700,,,1850,3.8,1912,9500,1,15240,Active,2026-02-11,simulated
+AC-003,Mikoyan MiG-29UPG,Aircraft,Fighter,Air superiority / multirole,3500,,,1500,2.9,2400,4500,1,18000,Active,2026-01-28,simulated
+AC-004,Dassault Mirage 2000,Aircraft,Fighter,Multirole,3200,,,1550,2.8,2336,6300,1,17000,Active,2026-02-01,simulated
+AC-005,SEPECAT Jaguar,Aircraft,Strike,Ground attack / strike,3400,,,1400,2.6,1690,4700,1,14000,Active,2026-01-22,simulated
+AC-006,Lockheed Martin C-130J Super Hercules,Aircraft,Transport,Tactical transport,20000,,,3300,8.0,670,20000,5,8600,Active,2026-02-10,simulated
+AC-007,Boeing C-17 Globemaster III,Aircraft,Transport,Strategic transport,134500,,,4500,9.0,830,77500,4,13700,Active,2026-02-06,simulated
+AC-008,Ilyushin Il-76,Aircraft,Transport,Strategic transport,109000,,,4000,8.5,850,45000,5,12000,Active,2026-01-30,simulated
+AC-009,Antonov An-32,Aircraft,Transport,Medium transport,27000,,,2500,6.2,530,7000,3,9500,Active,2026-02-04,simulated
+AC-010,Ilyushin Il-78MKI,Aircraft,Tanker,Aerial refuelling tanker,118000,,,7300,10.0,850,40000,6,12000,Active,2026-02-03,simulated
+AC-011,HAL Dhruv,Helicopter,Utility,Utility helicopter,1100,,,630,3.5,290,1500,2,6100,Active,2026-02-07,simulated
+AC-012,HAL Rudra,Helicopter,Attack,Attack helicopter,1100,,,600,3.2,280,1200,2,6000,Active,2026-01-26,simulated
+AC-013,HAL Prachand,Helicopter,Light Combat,Light combat / attack helicopter,1050,,,550,3.0,275,1000,2,6500,Active,2026-02-02,simulated
+AC-014,Mi-17 Series,Helicopter,Transport,Transport / armed helicopter,3700,,,800,4.0,250,4000,3,6000,Active,2026-01-31,simulated
+AC-015,IAI Searcher,UAV,Surveillance,Surveillance UAV,,58,115,220,14.0,165,150,0,6800,Active,2026-02-09,simulated
+AC-016,IAI Heron,UAV,Surveillance,Surveillance UAV,,95,170,320,24.0,190,250,0,9100,Active,2026-02-05,simulated
+AC-017,MQ-9 Reaper / SeaGuardian / SkyGuardian,UAV,MALE,MALE combat / surveillance UAV,,220,210,1200,20.0,340,1700,0,12000,Planned,2026-02-12,simulated
+AC-018,Elbit Hermes 900 Drishti-10,UAV,Surveillance,Surveillance UAV,,110,180,650,30.0,220,350,0,9100,Active,2026-02-01,simulated
+AC-019,DRDO Nishant,UAV,Surveillance,Surveillance UAV,,24,80,110,4.5,185,45,0,3600,Reserve,2025-12-18,simulated
+AC-020,DRDO Lakshya,UAV,Target,Target drone,,32,95,180,2.0,500,75,0,9000,Active,2026-01-15,simulated
+AC-021,DRDO Ulka,UAV,Target,Air-launched target drone,,12,55,90,1.5,450,20,0,7000,Reserve,2025-11-22,simulated
+AC-022,DRDO Abhyas,UAV,Target,High-speed expendable target drone,,18,70,140,0.8,700,30,0,10000,Active,2026-01-27,simulated
+AC-023,DRDO Netra,UAV,Mini,Mini / quadcopter surveillance UAV,,1.8,45,15,1.5,45,2,0,3500,Active,2026-02-13,simulated
+AC-024,DRDO Rustom,UAV,MALE,MALE UAV,,105,195,700,20.0,225,350,0,9000,Trial,2026-01-19,simulated
+AC-025,TAPAS-BH-201,UAV,MALE,MALE UAV,,120,210,1000,18.0,240,350,0,9100,Trial,2026-02-14,simulated
+AC-026,DRDO Ghatak,UCAV,Stealth,Stealth UCAV (under development),,260,240,900,6.0,900,1000,0,13000,Development,2026-02-16,simulated

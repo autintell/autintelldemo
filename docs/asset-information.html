@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asset Information - Autintell LogOS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-100 text-slate-900">
+  <header class="bg-slate-900 text-white border-b border-slate-700 sticky top-0 z-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-widest text-orange-300">Autintell LogOS</p>
+        <h1 class="text-xl md:text-2xl font-bold">Asset Information</h1>
+      </div>
+      <a href="dashboard.html" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Back to Dashboard</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div id="loading" class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">Loading asset data...</div>
+
+    <div id="content" class="hidden space-y-6">
+      <section class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <p id="assetCategory" class="text-xs uppercase tracking-wide text-slate-500"></p>
+        <h2 id="assetName" class="text-3xl font-bold mt-1"></h2>
+        <p id="assetRole" class="text-slate-600 mt-1"></p>
+      </section>
+
+      <section class="grid lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <img id="assetImage" alt="Asset image" class="w-full h-72 object-cover bg-slate-200">
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+          <h3 class="text-lg font-bold mb-4">Specifications</h3>
+          <dl id="specsList" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm"></dl>
+        </div>
+      </section>
+    </div>
+
+    <div id="error" class="hidden bg-rose-50 border border-rose-200 text-rose-700 rounded-xl p-6"></div>
+  </main>
+
+  <script>
+    const imageMap = {
+      'AC-001': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Sukhoi_Su-30MKI_%28SB176%29.jpg/1280px-Sukhoi_Su-30MKI_%28SB176%29.jpg',
+      'AC-002': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Rafale_-_RIAT_2009_%283752528048%29.jpg/1280px-Rafale_-_RIAT_2009_%283752528048%29.jpg',
+      'AC-007': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Boeing_C-17_Globemaster_III%2C_US_-_Air_Force_JP7567336.jpg/1280px-Boeing_C-17_Globemaster_III%2C_US_-_Air_Force_JP7567336.jpg',
+      'GV-001': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Indian_Army_T-90_Bhishma_tank.jpg/1280px-Indian_Army_T-90_Bhishma_tank.jpg'
+    };
+
+    function parseCsv(text) {
+      const lines = text.trim().split('\n');
+      const headers = lines[0].split(',');
+      return lines.slice(1).map(line => {
+        const values = line.split(',');
+        const row = {};
+        headers.forEach((h, i) => row[h] = values[i] ?? '');
+        return row;
+      });
+    }
+
+    function friendlyLabel(key) {
+      return key
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    async function loadAsset() {
+      const params = new URLSearchParams(window.location.search);
+      const assetId = params.get('assetId');
+
+      if (!assetId) {
+        throw new Error('Missing assetId in URL.');
+      }
+
+      if (window.location.protocol === 'file:') {
+        throw new Error('This page cannot read CSV files over file:// due browser security (CORS). Open via GitHub Pages or run a local HTTP server (for example VS Code Live Server) and then retry.');
+      }
+
+      const [aircraftCsv, vehiclesCsv] = await Promise.all([
+        fetch('data/aircraft_specs.csv').then(r => r.text()),
+        fetch('data/vehicle_specs.csv').then(r => r.text())
+      ]);
+
+      const aircraft = parseCsv(aircraftCsv);
+      const vehicles = parseCsv(vehiclesCsv);
+      const allAssets = [...aircraft, ...vehicles];
+      const asset = allAssets.find(a => a.asset_id === assetId || a.vehicle_id === assetId);
+
+      if (!asset) {
+        throw new Error(`Asset not found for id ${assetId}.`);
+      }
+
+      const assetName = asset.asset_name || asset.vehicle_name;
+      const category = asset.category || 'Unknown Category';
+      const role = asset.role || 'Unknown Role';
+
+      document.getElementById('assetCategory').textContent = category;
+      document.getElementById('assetName').textContent = assetName;
+      document.getElementById('assetRole').textContent = role;
+
+      const fallbackImage = `https://placehold.co/1200x700/e2e8f0/0f172a?text=${encodeURIComponent(assetName)}`;
+      document.getElementById('assetImage').src = imageMap[assetId] || fallbackImage;
+
+      const preferredOrder = [
+        'sub_category', 'role', 'fuel_capacity_l', 'battery_capacity_kwh', 'charge_time_min',
+        'range_km', 'operational_range_km', 'endurance_hours', 'max_speed_kmph',
+        'payload_kg', 'crew', 'service_ceiling_m', 'armor_level', 'weapon_system',
+        'status', 'last_maintenance_date', 'data_quality'
+      ];
+
+      const specsList = document.getElementById('specsList');
+      preferredOrder.forEach(key => {
+        if (asset[key] !== undefined && asset[key] !== '') {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'border-b border-slate-100 pb-2';
+          wrapper.innerHTML = `<dt class="text-slate-500">${friendlyLabel(key)}</dt><dd class="font-semibold text-slate-900">${asset[key]}</dd>`;
+          specsList.appendChild(wrapper);
+        }
+      });
+
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('content').classList.remove('hidden');
+    }
+
+    loadAsset().catch(err => {
+      document.getElementById('loading').classList.add('hidden');
+      const error = document.getElementById('error');
+      error.textContent = err.message;
+      error.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
