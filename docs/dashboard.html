@@ -16,6 +16,27 @@
       }
     }
   </script>
+  <script>
+    (function enforceDashboardAuth() {
+      const sessionRaw = localStorage.getItem('autintell_session');
+      if (!sessionRaw) {
+        window.location.replace('index.html#logistics-support');
+        return;
+      }
+
+      try {
+        const session = JSON.parse(sessionRaw);
+        if (!session.authenticated || !session.expiresAt || Date.now() > Number(session.expiresAt)) {
+          localStorage.removeItem('autintell_session');
+          document.cookie = 'autintell_session_expires=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+          window.location.replace('index.html#logistics-support');
+        }
+      } catch (_e) {
+        localStorage.removeItem('autintell_session');
+        window.location.replace('index.html#logistics-support');
+      }
+    })();
+  </script>
 </head>
 <body class="bg-slate-100 text-slate-900">
   <div class="min-h-screen">
@@ -25,7 +46,7 @@
           <p class="text-xs uppercase tracking-widest text-orange-300">Autintell LogOS</p>
           <h1 class="text-xl md:text-2xl font-bold">AI-Driven Logistics Planning Dashboard</h1>
         </div>
-        <a href="index.html#demo-page" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Logout</a>
+        <button onclick="logoutDashboard()" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Logout</button>
       </div>
     </header>
 
@@ -229,7 +250,7 @@
         <div class="grid lg:grid-cols-2 gap-6">
           <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
             <h3 class="text-lg font-bold mb-3">Fighter / Strike Aircraft</h3>
-            <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700">
+            <ul class="space-y-1 text-sm text-slate-700">
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-001">Air superiority / multirole fighter – Sukhoi Su-30MKI</a></li>
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-002">Multirole fighter – Dassault Rafale</a></li>
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-003">Air superiority / multirole fighter – Mikoyan MiG-29UPG</a></li>
@@ -240,7 +261,7 @@
 
           <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
             <h3 class="text-lg font-bold mb-3">Transport / Tanker Aircraft</h3>
-            <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700">
+            <ul class="space-y-1 text-sm text-slate-700">
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-006">Tactical transport aircraft – Lockheed Martin C-130J Super Hercules</a></li>
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-007">Strategic transport aircraft – Boeing C-17 Globemaster III</a></li>
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-008">Strategic transport aircraft – Ilyushin Il-76</a></li>
@@ -251,7 +272,7 @@
 
           <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
             <h3 class="text-lg font-bold mb-3">Helicopters</h3>
-            <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700">
+            <ul class="space-y-1 text-sm text-slate-700">
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-011">Utility helicopter – HAL Dhruv</a></li>
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-012">Attack helicopter – HAL Rudra</a></li>
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-013">Light combat / attack helicopter – HAL Prachand</a></li>
@@ -261,7 +282,7 @@
 
           <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
             <h3 class="text-lg font-bold mb-3">Ground Combat & Support Vehicles</h3>
-            <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700 max-h-80 overflow-y-auto pr-2">
+            <ul class="space-y-1 text-sm text-slate-700 max-h-80 overflow-y-auto pr-2">
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=GV-001">Main battle tank – T-90 Bhishma</a></li>
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=GV-002">Main battle tank – Arjun</a></li>
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=GV-003">Infantry combat vehicle – BMP-2 Sarath</a></li>
@@ -277,7 +298,7 @@
 
           <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
             <h3 class="text-lg font-bold mb-3">UAV / Drone / UCAV Platforms</h3>
-            <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700 max-h-80 overflow-y-auto pr-2">
+            <ul class="space-y-1 text-sm text-slate-700 max-h-80 overflow-y-auto pr-2">
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-015">Surveillance UAV – IAI Searcher</a></li>
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-016">Surveillance UAV – IAI Heron</a></li>
               <li><a class="text-orange-600 hover:text-orange-700 hover:underline" href="asset-information.html?assetId=AC-017">MALE combat / surveillance UAV – MQ-9 Reaper / SeaGuardian / SkyGuardian</a></li>
@@ -386,6 +407,12 @@
         rightLabelWrap.classList.add('hidden');
         rightPanels.forEach(el => el.classList.add('hidden'));
       }
+    }
+
+    function logoutDashboard() {
+      localStorage.removeItem('autintell_session');
+      document.cookie = 'autintell_session_expires=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+      window.location.href = 'index.html#demo-page';
     }
   </script>
 </body>

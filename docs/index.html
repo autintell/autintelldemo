@@ -393,6 +393,9 @@
 		const message = document.getElementById('loginMessage');
 
 		if (username === 'idexdemo' && password === 'idexdemo123*') {
+			const expiresAt = Date.now() + (30 * 60 * 1000);
+			localStorage.setItem('autintell_session', JSON.stringify({ authenticated: true, expiresAt }));
+			document.cookie = `autintell_session_expires=${expiresAt}; path=/; max-age=1800; SameSite=Lax`;
 			message.textContent = 'Login successful. Redirecting...';
 			message.className = 'text-sm text-green-300';
 			window.location.href = 'dashboard.html';
